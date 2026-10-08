@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- يخلي الصفحة مناسبة للجوال -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Connect Me | Ryuof Alswoilm</title>
+
+    <style>
+
+        /* =====================================================
+           إعدادات عامة
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            /* Light Mode */
+            --bg: #8FAEAA;
+            --text: #14201F;
+            --soft: #405653;
+            --line: rgba(31, 61, 58, 0.20);
+            --card: rgba(189, 209, 205, 0.76);
+            --accent: #8570F1;
+            --accent-2: #95E66D;
+            --button-bg: rgba(218, 231, 228, 0.42);
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(151,222,218,0.18),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 45%,
+                    rgba(133,112,241,0.12),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    180deg,
+                    #8FAEAA 0%,
+                    #9FB9B5 50%,
+                    #89A7A3 100%
+                );
+
+            background-attachment: fixed;
+
+            color: var(--text);
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease;
+        }
+
+
+        /* =====================================================
+           Dark Mode
+        ===================================================== */
+
+        body.dark-mode {
+
+            --bg: #111717;
+            --text: #EEF8F7;
+            --soft: #BDD0CD;
+            --line: rgba(255,255,255,0.10);
+            --card: rgba(255,255,255,0.06);
+            --accent: #A99AF5;
+            --accent-2: #95E66D;
+            --button-bg: rgba(255,255,255,0.08);
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(151,222,218,0.06),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 45%,
+                    rgba(133,112,241,0.08),
+                    transparent 30%
+                ),
+                #111717;
+        }
+
+
+        /* =====================================================
+           أزرار أعلى الصفحة
+        ===================================================== */
+
+        .top-button {
+
+            position: fixed;
+
+            top: 20px;
+
+            width: 43px;
+            height: 43px;
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 50%;
+
+            background:
+                var(--button-bg);
+
+            color:
+                var(--text);
+
+            font-size: 20px;
+
+            cursor: pointer;
+
+            z-index: 1000;
+
+            backdrop-filter:
+                blur(10px);
+
+            transition:
+                transform 0.25s ease,
+                background 0.4s ease;
+        }
+
+        .back-button {
+            left: 22px;
+        }
+
+        .theme-toggle {
+            right: 22px;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+
+        .theme-toggle:hover {
+            transform:
+                rotate(12deg)
+                scale(1.05);
+        }
+
+
+        /* =====================================================
+           مقدمة الصفحة
+        ===================================================== */
+
+        .intro {
+
+            width: 90%;
+
+            max-width: 760px;
+
+            margin: auto;
+
+            text-align: center;
+
+            padding:
+                100px 20px
+                55px;
+        }
+
+        .small-label {
+
+            display: block;
+
+            color:
+                var(--accent);
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            font-weight: 700;
+
+            margin-bottom: 14px;
+        }
+
+        .intro h1 {
+
+            font-size: 50px;
+
+            margin-bottom: 16px;
+        }
+
+        .intro .en {
+
+            color:
+                var(--soft);
+
+            font-size: 17px;
+
+            line-height: 1.8;
+        }
+
+        .intro .ar {
+
+            direction: rtl;
+
+            color:
+                var(--soft);
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           رحلة التواصل
+        ===================================================== */
+
+        .connect-journey {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            padding:
+                30px 0
+                100px;
+
+            position: relative;
+        }
+
+
+        /* =====================================================
+           الخط المتعرج
+        ===================================================== */
+
+        .connection-path {
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            width: 420px;
+            height: 100%;
+
+            transform:
+                translateX(-50%);
+
+            pointer-events: none;
+        }
+
+        .connection-path path {
+
+            fill: none;
+
+            stroke:
+                var(--line);
+
+            stroke-width: 3;
+
+            stroke-dasharray: 10 10;
+
+            stroke-linecap: round;
+        }
+
+
+        /* =====================================================
+           النقطة المتحركة
+        ===================================================== */
+
+        .signal-dot {
+
+            position: absolute;
+
+            width: 18px;
+            height: 18px;
+
+            border-radius: 50%;
+
+            background:
+                var(--accent);
+
+            box-shadow:
+                0 0 0 7px
+                rgba(133,112,241,0.12);
+
+            z-index: 5;
+
+            transform:
+                translate(-50%, -50%);
+        }
+
+
+        /* =====================================================
+           كل محطة
+        ===================================================== */
+
+        .contact-step {
+
+            min-height: 360px;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+        }
+
+        .contact-step.left {
+            justify-content: flex-start;
+        }
+
+        .contact-step.right {
+            justify-content: flex-end;
+        }
+
+
+        /* =====================================================
+           كرت المحطة
+        ===================================================== */
+
+        .contact-card {
+
+            width: 42%;
+
+            padding: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--card),
+                    rgba(255,255,255,0.10)
+                );
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 24px;
+
+            backdrop-filter:
+                blur(10px);
+
+            box-shadow:
+                0 18px 42px
+                rgba(41,72,69,0.10);
+
+            opacity: 0;
+
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease,
+                background 0.4s ease;
+        }
+
+        .contact-step.left .contact-card {
+            transform:
+                translateX(-35px);
+        }
+
+        .contact-step.right .contact-card {
+            transform:
+                translateX(35px);
+        }
+
+        .contact-card.show {
+
+            opacity: 1;
+
+            transform:
+                translateX(0) !important;
+        }
+
+        .contact-card:hover {
+
+            transform:
+                translateY(-6px) !important;
+        }
+
+
+        /* =====================================================
+           رقم المحطة
+        ===================================================== */
+
+        .step-number {
+
+            display: block;
+
+            color:
+                var(--accent);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+        }
+
+
+        /* =====================================================
+           العناوين
+        ===================================================== */
+
+        .contact-card h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 8px;
+        }
+
+        .arabic-title {
+
+            direction: rtl;
+
+            text-align: right;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            margin-bottom: 16px;
+        }
+
+
+        /* =====================================================
+           النصوص
+        ===================================================== */
+
+        .contact-card .en {
+
+            color:
+                var(--soft);
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+        .contact-card .ar {
+
+            direction: rtl;
+
+            text-align: right;
+
+            color:
+                var(--soft);
+
+            font-size: 13px;
+
+            line-height: 1.9;
+
+            margin-top: 12px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid
+                var(--line);
+        }
+
+
+        /* =====================================================
+           رابط التواصل
+        ===================================================== */
+
+        .contact-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 18px;
+
+            padding:
+                10px 14px;
+
+            border-radius: 20px;
+
+            text-decoration: none;
+
+            color:
+                var(--text);
+
+            background:
+                var(--button-bg);
+
+            border:
+                1px solid
+                var(--line);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .contact-link:hover {
+
+            transform:
+                translateY(-3px);
+        }
+
+
+        /* =====================================================
+           آخر محطة
+        ===================================================== */
+
+        .final-card {
+
+            text-align: center;
+        }
+
+        .final-card h2 {
+
+            font-size: 32px;
+        }
+
+
+        /* =====================================================
+           النهاية
+        ===================================================== */
+
+        .ending {
+
+            max-width: 650px;
+
+            margin:
+                20px auto
+                100px;
+
+            padding:
+                0 20px;
+
+            text-align: center;
+        }
+
+        .ending p {
+
+            color:
+                var(--soft);
+
+            line-height: 1.8;
+
+            font-size: 15px;
+        }
+
+        .ending .arabic {
+
+            direction: rtl;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           الجوال
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .connection-path,
+            .signal-dot {
+                display: none;
+            }
+
+            .contact-step,
+            .contact-step.left,
+            .contact-step.right {
+
+                justify-content: center;
+
+                min-height: auto;
+
+                margin-bottom: 25px;
+            }
+
+            .contact-card {
+
+                width: 100%;
+            }
+
+            .intro h1 {
+
+                font-size: 38px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .intro {
+
+                padding-top: 95px;
+            }
+
+            .intro h1 {
+
+                font-size: 34px;
+            }
+
+            .contact-card {
+
+                padding: 24px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- زر الرجوع -->
+    <button
+        class="top-button back-button"
+        onclick="window.location.href='index.html'"
+        aria-label="Back"
+    >
+        ←
+    </button>
+
+
+    <!-- زر Dark Mode -->
+    <button
+        class="top-button theme-toggle"
+        id="themeToggle"
+        aria-label="Change theme"
+    >
+        🌙
+    </button>
+
+
+
+    <!-- =====================================================
+         مقدمة الصفحة
+    ====================================================== -->
+
+    <header class="intro">
+
+        <span class="small-label">
+            CONNECT ME | تواصل معي
+        </span>
+
+        <h1>
+            Let’s build something useful together.
+        </h1>
+
+        <p class="en">
+            I’m open to opportunities, collaborations,
+            and new ideas.
+        </p>
+
+        <p class="ar">
+            منفتحة للفرص، والتعاون، والأفكار الجديدة.
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         رحلة التواصل
+    ====================================================== -->
+
+    <main
+        class="connect-journey"
+        id="connectJourney"
+    >
+
+
+        <!-- =================================================
+             المسار المتعرج
+        ================================================== -->
+
+        <svg
+            class="connection-path"
+            viewBox="0 0 420 1200"
+            preserveAspectRatio="none"
+        >
+
+            <path
+                id="contactPath"
+                d="
+                    M210 20
+                    C80 180, 340 300, 210 420
+                    C80 560, 340 700, 210 820
+                    C80 960, 340 1080, 210 1180
+                "
+            />
+
+        </svg>
+
+
+        <!-- =================================================
+             النقطة اللي تتحرك على المسار
+        ================================================== -->
+
+        <div
+            class="signal-dot"
+            id="signalDot"
+        ></div>
+
+
+
+        <!-- =================================================
+             01 Email
+        ================================================== -->
+
+        <section class="contact-step left">
+
+            <article class="contact-card">
+
+                <span class="step-number">
+                    01 — EMAIL
+                </span>
+
+                <h2>
+                    Say hello.
+                </h2>
+
+                <div class="arabic-title">
+                    ابدأ برسالة
+                </div>
+
+                <p class="en">
+                    The easiest way to reach me directly.
+                </p>
+
+                <p class="ar">
+                    أسهل طريقة للتواصل معي بشكل مباشر.
+                </p>
+
+                <a
+                    class="contact-link"
+                    href="mailto:hereisry7@hotmail.com"
+                >
+                    hereisry7@hotmail.com
+                </a>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             02 GitHub
+        ================================================== -->
+
+        <section class="contact-step right">
+
+            <article class="contact-card">
+
+                <span class="step-number">
+                    02 — GITHUB
+                </span>
+
+                <h2>
+                    See what I build.
+                </h2>
+
+                <div class="arabic-title">
+                    شوف مشاريعي
+                </div>
+
+                <p class="en">
+                    Explore my code, projects, and things I’m building.
+                </p>
+
+                <p class="ar">
+                    استعرض الأكواد والمشاريع والأفكار التي أعمل عليها.
+                </p>
+
+                <a
+                    class="contact-link"
+                    href="https://github.com/hereisry"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    github.com/hereisry
+                </a>
+
+            </article>
+
+        </section>
+
+
+
+        <!-- =================================================
+             03 النهاية
+        ================================================== -->
+
+        <section class="contact-step left">
+
+            <article class="contact-card final-card">
+
+                <span class="step-number">
+                    03 — LET’S CONNECT
+                </span>
+
+                <h2>
+                    Maybe the next idea starts here.
+                </h2>
+
+                <div class="arabic-title">
+                    يمكن الفكرة الجاية تبدأ من هنا
+                </div>
+
+                <p class="en">
+                    I’m always happy to hear about a new opportunity,
+                    collaboration, or interesting problem worth solving.
+                </p>
+
+                <p class="ar">
+                    يسعدني دائمًا التعرف على فرصة جديدة،
+                    تعاون، أو مشكلة تستحق التفكير في حلها.
+                </p>
+
+            </article>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         النهاية
+    ====================================================== -->
+
+    <section class="ending">
+
+        <p>
+            Thanks for stopping by.
+        </p>
+
+        <p class="arabic">
+            شكرًا لزيارتك.
+        </p>
+
+    </section>
+
+
+
+    <script>
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+
+        const savedTheme =
+            localStorage.getItem("portfolioTheme");
+
+
+        if (savedTheme === "dark") {
+
+            document.body.classList.add("dark-mode");
+
+        }
+
+
+        function updateThemeIcon() {
+
+            if (
+                document.body.classList.contains("dark-mode")
+            ) {
+
+                themeToggle.textContent = "☀️";
+
+            }
+
+            else {
+
+                themeToggle.textContent = "🌙";
+
+            }
+
+        }
+
+
+        updateThemeIcon();
+
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                document.body.classList.toggle("dark-mode");
+
+
+                const dark =
+                    document.body.classList.contains("dark-mode");
+
+
+                localStorage.setItem(
+                    "portfolioTheme",
+                    dark ? "dark" : "light"
+                );
+
+
+                updateThemeIcon();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           إظهار الكروت عند السكرول
+        ===================================================== */
+
+        const cards =
+            document.querySelectorAll(
+                ".contact-card"
+            );
+
+
+        const observer =
+            new IntersectionObserver(
+
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target
+                                    .classList
+                                    .add("show");
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.25
+                }
+
+            );
+
+
+        cards.forEach(
+            function(card) {
+
+                observer.observe(card);
+
+            }
+        );
+
+
+
+        /* =====================================================
+           حركة النقطة على المسار
+        ===================================================== */
+
+        const journey =
+            document.getElementById(
+                "connectJourney"
+            );
+
+
+        const path =
+            document.getElementById(
+                "contactPath"
+            );
+
+
+        const dot =
+            document.getElementById(
+                "signalDot"
+            );
+
+
+        const pathLength =
+            path.getTotalLength();
+
+
+        let currentProgress = 0;
+
+        let targetProgress = 0;
+
+
+
+        function updateTargetProgress() {
+
+
+            if (
+                window.innerWidth <= 800
+            ) {
+
+                return;
+
+            }
+
+
+            const rect =
+                journey.getBoundingClientRect();
+
+
+            const scrollable =
+                journey.offsetHeight -
+                window.innerHeight * 0.3;
+
+
+            const travelled =
+                window.innerHeight * 0.55 -
+                rect.top;
+
+
+            targetProgress =
+                travelled /
+                scrollable;
+
+
+            targetProgress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        targetProgress
+                    )
+                );
+
+        }
+
+
+
+        function animateDot() {
+
+
+            currentProgress +=
+                (
+                    targetProgress -
+                    currentProgress
+                ) * 0.085;
+
+
+            const point =
+                path.getPointAtLength(
+                    currentProgress *
+                    pathLength
+                );
+
+
+            const svg =
+                document.querySelector(
+                    ".connection-path"
+                );
+
+
+            const svgRect =
+                svg.getBoundingClientRect();
+
+
+            const journeyRect =
+                journey.getBoundingClientRect();
+
+
+            const x =
+                (
+                    svgRect.left -
+                    journeyRect.left
+                ) +
+                (
+                    point.x /
+                    420
+                ) *
+                svgRect.width;
+
+
+            const y =
+                (
+                    point.y /
+                    1200
+                ) *
+                svgRect.height;
+
+
+            dot.style.left =
+                x + "px";
+
+
+            dot.style.top =
+                y + "px";
+
+
+            requestAnimationFrame(
+                animateDot
+            );
+
+        }
+
+
+
+        window.addEventListener(
+            "scroll",
+            updateTargetProgress
+        );
+
+
+        window.addEventListener(
+            "resize",
+            updateTargetProgress
+        );
+
+
+        updateTargetProgress();
+
+        animateDot();
+
+    </script>
+
+
+</body>
+
+</html>

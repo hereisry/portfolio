@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- يجعل الصفحة متجاوبة مع الجوال -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Journey | Ryuof Alswoilm</title>
+
+    <style>
+
+        /* =====================================================
+           إعدادات عامة
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            /* ألوان الوضع العادي */
+            --background: #f2fbfa;
+            --text: #121818;
+            --soft-text: #38504e;
+            --path: #8570f1;
+            --card: rgba(255, 255, 255, 0.55);
+            --star: #8570f1;
+            --number: #65bdb8;
+            --divider: rgba(0,0,0,0.10);
+
+            background: var(--background);
+
+            color: var(--text);
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease;
+        }
+
+
+        /* =====================================================
+           الوضع الداكن
+        ===================================================== */
+
+        body.dark-mode {
+
+            --background: #111717;
+            --text: #eef8f7;
+            --soft-text: #b9cecc;
+            --path: #aaa2e2;
+            --card: rgba(255,255,255,0.07);
+            --star: #95e66d;
+            --number: #97deda;
+            --divider: rgba(255,255,255,0.10);
+        }
+
+
+        /* =====================================================
+           زر الرجوع
+        ===================================================== */
+
+        .back-button {
+
+            position: fixed;
+
+            top: 20px;
+            left: 22px;
+
+            width: 42px;
+            height: 42px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.35);
+
+            color: var(--text);
+
+            font-size: 23px;
+
+            cursor: pointer;
+
+            z-index: 1000;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .back-button:hover {
+
+            transform: translateX(-5px);
+
+            background: rgba(255,255,255,0.55);
+        }
+
+
+        /* =====================================================
+           زر Dark Mode
+        ===================================================== */
+
+        .theme-toggle {
+
+            position: fixed;
+
+            top: 20px;
+            right: 22px;
+
+            width: 44px;
+            height: 44px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.35);
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            z-index: 1000;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .theme-toggle:hover {
+
+            transform: rotate(12deg) scale(1.07);
+        }
+
+
+        /* =====================================================
+           رأس الصفحة
+        ===================================================== */
+
+        .journey-header {
+
+            text-align: center;
+
+            padding: 70px 20px 35px;
+        }
+
+        .journey-header .small-label {
+
+            display: block;
+
+            font-size: 12px;
+
+            letter-spacing: 3px;
+
+            opacity: 0.55;
+
+            margin-bottom: 10px;
+        }
+
+        .journey-header h1 {
+
+            font-size: 46px;
+
+            margin-bottom: 8px;
+        }
+
+        .journey-header .arabic-main-title {
+
+            font-size: 25px;
+
+            font-weight: 500;
+
+            direction: rtl;
+
+            margin-bottom: 20px;
+        }
+
+        .journey-header .english-intro {
+
+            max-width: 650px;
+
+            margin: auto;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            color: var(--soft-text);
+        }
+
+        .journey-header .arabic-intro {
+
+            max-width: 650px;
+
+            margin: 10px auto 0;
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+            color: var(--soft-text);
+
+            direction: rtl;
+        }
+
+
+        /* =====================================================
+           منطقة الرحلة
+        ===================================================== */
+
+        .journey {
+
+            position: relative;
+
+            width: 100%;
+
+            max-width: 1100px;
+
+            height: 3150px;
+
+            margin: 20px auto 0;
+
+            padding: 0 30px 100px;
+        }
+
+
+        /* =====================================================
+           الـ SVG والمسار
+        ===================================================== */
+
+        .journey-svg {
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 500px;
+
+            height: 3050px;
+
+            overflow: visible;
+
+            pointer-events: none;
+        }
+
+        #journeyPath {
+
+            fill: none;
+
+            stroke: var(--path);
+
+            stroke-width: 4;
+
+            stroke-linecap: round;
+
+            stroke-linejoin: round;
+
+            opacity: 0.45;
+
+            transition: stroke 0.4s ease;
+        }
+
+
+        /* =====================================================
+           النجمة المتحركة
+        ===================================================== */
+
+        .moving-star {
+
+            position: absolute;
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 48px;
+
+            color: var(--star);
+
+            z-index: 20;
+
+            pointer-events: none;
+
+            transform: translate(-50%, -50%);
+
+            text-shadow:
+                0 0 15px rgba(133,112,241,0.25);
+
+            transition: color 0.4s ease;
+        }
+
+
+        /* =====================================================
+           محطات الرحلة
+        ===================================================== */
+
+        .journey-step {
+
+            position: absolute;
+
+            width: 360px;
+
+            padding: 25px 28px;
+
+            background: var(--card);
+
+            border-radius: 24px;
+
+            backdrop-filter: blur(10px);
+
+            opacity: 0;
+
+            transform: translateY(35px);
+
+            transition:
+                opacity 0.65s ease,
+                transform 0.65s ease,
+                background 0.4s ease;
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.06);
+        }
+
+        .journey-step.show {
+
+            opacity: 1;
+
+            transform: translateY(0);
+        }
+
+        .journey-step.left {
+
+            left: 5%;
+        }
+
+        .journey-step.right {
+
+            right: 5%;
+        }
+
+
+        /* =====================================================
+           رقم المحطة
+        ===================================================== */
+
+        .step-number {
+
+            display: inline-block;
+
+            font-size: 12px;
+
+            letter-spacing: 2px;
+
+            color: var(--number);
+
+            font-weight: 700;
+
+            margin-bottom: 9px;
+        }
+
+
+        /* =====================================================
+           عناوين المحطة
+        ===================================================== */
+
+        .journey-step h2 {
+
+            font-size: 28px;
+
+            margin-bottom: 7px;
+        }
+
+        .arabic-heading {
+
+            font-size: 20px;
+
+            font-weight: 500;
+
+            direction: rtl;
+
+            text-align: right;
+
+            margin-bottom: 16px;
+        }
+
+
+        /* =====================================================
+           النص الإنجليزي
+        ===================================================== */
+
+        .english-text {
+
+            font-size: 15px;
+
+            line-height: 1.65;
+
+            color: var(--soft-text);
+        }
+
+
+        /* =====================================================
+           النص العربي
+        ===================================================== */
+
+        .arabic-text {
+
+            margin-top: 13px;
+
+            padding-top: 13px;
+
+            border-top: 1px solid var(--divider);
+
+            direction: rtl;
+
+            text-align: right;
+
+            line-height: 1.9;
+
+            font-size: 14px;
+
+            color: var(--soft-text);
+        }
+
+
+        /* =====================================================
+           أماكن المحطات
+        ===================================================== */
+
+        .step-1 {
+            top: 180px;
+        }
+
+        .step-2 {
+            top: 660px;
+        }
+
+        .step-3 {
+            top: 1140px;
+        }
+
+        .step-4 {
+            top: 1620px;
+        }
+
+        .step-5 {
+            top: 2100px;
+        }
+
+        .step-6 {
+            top: 2580px;
+        }
+
+
+        /* =====================================================
+           نهاية الرحلة
+        ===================================================== */
+
+        .journey-end {
+
+            text-align: center;
+
+            max-width: 680px;
+
+            margin: -80px auto 100px;
+
+            padding: 25px;
+
+            color: var(--soft-text);
+        }
+
+        .journey-end .english-end {
+
+            font-size: 18px;
+
+            line-height: 1.6;
+        }
+
+        .journey-end .arabic-end {
+
+            margin-top: 13px;
+
+            padding-top: 13px;
+
+            border-top: 1px solid var(--divider);
+
+            direction: rtl;
+
+            font-size: 16px;
+
+            line-height: 1.9;
+        }
+
+
+        /* =====================================================
+           Responsive
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .journey {
+
+                height: auto;
+
+                padding: 40px 20px 70px;
+            }
+
+            .journey-svg {
+
+                display: none;
+            }
+
+            .moving-star {
+
+                display: none;
+            }
+
+            .journey-step {
+
+                position: relative;
+
+                top: auto !important;
+                left: auto !important;
+                right: auto !important;
+
+                width: 100%;
+
+                max-width: 650px;
+
+                margin: 0 auto 35px;
+
+                opacity: 1;
+
+                transform: none;
+            }
+
+            .journey-header h1 {
+
+                font-size: 38px;
+            }
+
+            .journey-end {
+
+                margin: 10px auto 70px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .journey-header {
+
+                padding-top: 85px;
+            }
+
+            .journey-header h1 {
+
+                font-size: 32px;
+            }
+
+            .journey-header .arabic-main-title {
+
+                font-size: 21px;
+            }
+
+            .journey-header .english-intro,
+            .journey-header .arabic-intro {
+
+                font-size: 14px;
+            }
+
+            .journey-step {
+
+                padding: 23px 21px;
+            }
+
+            .journey-step h2 {
+
+                font-size: 24px;
+            }
+
+            .arabic-heading {
+
+                font-size: 18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         زر الرجوع
+    ====================================================== -->
+
+    <button
+        class="back-button"
+        onclick="window.location.href='index.html'"
+        aria-label="Back"
+    >
+        ←
+    </button>
+
+
+    <!-- =====================================================
+         زر Dark Mode
+    ====================================================== -->
+
+    <button
+        class="theme-toggle"
+        id="themeToggle"
+        aria-label="Change theme"
+    >
+        🌙
+    </button>
+
+
+
+    <!-- =====================================================
+         مقدمة الرحلة
+    ====================================================== -->
+
+    <header class="journey-header">
+
+        <span class="small-label">
+            MY JOURNEY | رحلتي
+        </span>
+
+        <h1>
+            From noticing problems to building solutions.
+        </h1>
+
+        <div class="arabic-main-title">
+            من ملاحظة المشكلات إلى بناء الحلول.
+        </div>
+
+        <p class="english-intro">
+            My journey has been shaped by the places I studied,
+            worked, and learned from. Each experience taught me
+            to look at everyday challenges differently.
+        </p>
+
+        <p class="arabic-intro">
+            تشكّلت رحلتي من خلال الأماكن التي درست وعملت وتعلمت فيها،
+            وكل تجربة جعلتني أنظر إلى التحديات اليومية بطريقة مختلفة.
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         منطقة الرحلة
+    ====================================================== -->
+
+    <main class="journey" id="journey">
+
+
+        <!-- =================================================
+             المسار
+        ================================================== -->
+
+        <svg
+            class="journey-svg"
+            viewBox="0 0 500 3050"
+            preserveAspectRatio="none"
+        >
+
+            <path
+                id="journeyPath"
+                d="
+                    M250 40
+
+                    C90 220,
+                    410 430,
+                    250 650
+
+                    C80 850,
+                    420 1050,
+                    250 1280
+
+                    C100 1480,
+                    400 1680,
+                    250 1900
+
+                    C80 2120,
+                    420 2320,
+                    250 2520
+
+                    C150 2700,
+                    350 2890,
+                    250 3010
+                "
+            />
+
+        </svg>
+
+
+        <!-- =================================================
+             النجمة المتحركة
+        ================================================== -->
+
+        <div
+            class="moving-star"
+            id="movingStar"
+        >
+            ☆
+        </div>
+
+
+
+        <!-- =================================================
+             المحطة 01
+        ================================================== -->
+
+        <section class="journey-step left step-1">
+
+            <span class="step-number">
+                01 — RETAIL | التجزئة
+            </span>
+
+            <h2>
+                Learning how businesses work
+            </h2>
+
+            <div class="arabic-heading">
+                تعلّمت كيف تعمل الأعمال فعليًا
+            </div>
+
+            <p class="english-text">
+                Working closely with customers and daily operations
+                gave me a real understanding of how businesses work,
+                where delays happen, and what teams need to work better.
+            </p>
+
+            <p class="arabic-text">
+                العمل بشكل مباشر مع العملاء والعمليات اليومية أعطاني فهمًا حقيقيًا
+                لطريقة عمل الشركات، وأين تحدث التأخيرات، وما الذي تحتاجه الفرق
+                للعمل بشكل أفضل.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             المحطة 02
+        ================================================== -->
+
+        <section class="journey-step right step-2">
+
+            <span class="step-number">
+                02 — OBSERVATION | الملاحظة
+            </span>
+
+            <h2>
+                I started noticing problems
+            </h2>
+
+            <div class="arabic-heading">
+                بدأت ألاحظ المشكلات
+            </div>
+
+            <p class="english-text">
+                I found myself paying attention to repeated issues in
+                everyday work and asking the same question:
+                “Is there a simpler way to do this?”
+            </p>
+
+            <p class="arabic-text">
+                وجدت نفسي ألاحظ المشكلات المتكررة في العمل اليومي
+                وأسأل نفسي دائمًا:
+                "هل توجد طريقة أبسط للقيام بهذا؟"
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             المحطة 03
+        ================================================== -->
+
+        <section class="journey-step left step-3">
+
+            <span class="step-number">
+                03 — TECHNOLOGY | التقنية
+            </span>
+
+            <h2>
+                Programming & Databases
+            </h2>
+
+            <div class="arabic-heading">
+                البرمجة وقواعد البيانات
+            </div>
+
+            <p class="english-text">
+                Studying programming and databases gave me the tools
+                to turn ideas into real systems instead of only
+                thinking about possible solutions.
+            </p>
+
+            <p class="arabic-text">
+                دراسة البرمجة وقواعد البيانات أعطتني الأدوات التي تساعدني
+                على تحويل الأفكار إلى أنظمة حقيقية بدلًا من الاكتفاء بالتفكير
+                في حلول ممكنة.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             المحطة 04
+        ================================================== -->
+
+        <section class="journey-step right step-4">
+
+            <span class="step-number">
+                04 — REAL NEEDS | احتياجات حقيقية
+            </span>
+
+            <h2>
+                Real problems became project ideas
+            </h2>
+
+            <div class="arabic-heading">
+                المشكلات الحقيقية أصبحت أفكار مشاريع
+            </div>
+
+            <p class="english-text">
+                Workplace challenges inspired ideas such as an
+                inventory transfer system and a clinic session tracker
+                designed around real operational needs.
+            </p>
+
+            <p class="arabic-text">
+                التحديات التي واجهتها في بيئات العمل ألهمتني بأفكار مثل
+                نظام نقل المخزون بين الفروع ونظام متابعة جلسات العملاء
+                في العيادة، وكلها مبنية على احتياجات تشغيلية حقيقية.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             المحطة 05
+        ================================================== -->
+
+        <section class="journey-step left step-5">
+
+            <span class="step-number">
+                05 — EASYPARK
+            </span>
+
+            <h2>
+                A university problem became a project
+            </h2>
+
+            <div class="arabic-heading">
+                مشكلة في الجامعة أصبحت مشروعًا
+            </div>
+
+            <p class="english-text">
+                Difficulty finding parking on campus inspired EasyPark,
+                a smart parking concept designed to make reservations
+                easier and reduce congestion.
+            </p>
+
+            <p class="arabic-text">
+                صعوبة إيجاد مواقف في الجامعة ألهمت فكرة EasyPark،
+                وهو نظام مواقف ذكي يهدف إلى تسهيل الحجز
+                والمساعدة في تقليل الازدحام.
+            </p>
+
+        </section>
+
+
+
+        <!-- =================================================
+             المحطة 06
+        ================================================== -->
+
+        <section class="journey-step right step-6">
+
+            <span class="step-number">
+                06 — WHAT’S NEXT? | ماذا بعد؟
+            </span>
+
+            <h2>
+                Keep learning. Keep building.
+            </h2>
+
+            <div class="arabic-heading">
+                أستمر في التعلم، وأستمر في البناء
+            </div>
+
+            <p class="english-text">
+                I’m continuing to grow in web development, databases
+                and UI/UX, while looking for opportunities to build
+                useful solutions around real problems.
+            </p>
+
+            <p class="arabic-text">
+                أواصل تطوير مهاراتي في تطوير الويب وقواعد البيانات
+                وUI/UX، وأبحث عن فرص أبني فيها حلولًا مفيدة
+                لمشكلات حقيقية.
+            </p>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         نهاية الرحلة
+    ====================================================== -->
+
+    <section class="journey-end">
+
+        <p class="english-end">
+            I don’t just enjoy building websites.
+            I enjoy understanding why something needs to be built
+            in the first place.
+        </p>
+
+        <p class="arabic-end">
+            أنا لا أستمتع فقط ببناء المواقع،
+            بل أستمتع بفهم لماذا نحتاج إلى بناء شيء من الأساس.
+        </p>
+
+    </section>
+
+
+
+    <script>
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        const themeToggle =
+            document.getElementById("themeToggle");
+
+
+        /* نقرأ اختيار المستخدم السابق */
+        const savedTheme =
+            localStorage.getItem("portfolioTheme");
+
+
+        /* إذا كان المستخدم مختار الوضع الداكن نشغله */
+        if (savedTheme === "dark") {
+
+            document.body.classList.add(
+                "dark-mode"
+            );
+
+        }
+
+
+        /* تغيير الأيقونة حسب الوضع */
+        function updateThemeIcon() {
+
+            if (
+                document.body.classList.contains(
+                    "dark-mode"
+                )
+            ) {
+
+                themeToggle.textContent = "☀️";
+
+            }
+
+            else {
+
+                themeToggle.textContent = "🌙";
+
+            }
+
+        }
+
+
+        updateThemeIcon();
+
+
+        /* عند الضغط على زر الوضع */
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                document.body.classList.toggle(
+                    "dark-mode"
+                );
+
+
+                const darkMode =
+                    document.body.classList.contains(
+                        "dark-mode"
+                    );
+
+
+                /* حفظ اختيار المستخدم */
+                localStorage.setItem(
+                    "portfolioTheme",
+                    darkMode
+                        ? "dark"
+                        : "light"
+                );
+
+
+                updateThemeIcon();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           حركة النجمة على المسار
+        ===================================================== */
+
+        const journey =
+            document.getElementById("journey");
+
+
+        const path =
+            document.getElementById(
+                "journeyPath"
+            );
+
+
+        const star =
+            document.getElementById(
+                "movingStar"
+            );
+
+
+        /* نحسب طول المسار كامل */
+        const pathLength =
+            path.getTotalLength();
+
+
+        /* مكان النجمة الحالي */
+        let currentProgress = 0;
+
+
+        /* المكان اللي المفروض النجمة تتجه له */
+        let targetProgress = 0;
+
+
+
+        /* =====================================================
+           حساب نسبة السكرول
+        ===================================================== */
+
+        function updateTargetProgress() {
+
+
+            /* على الشاشات الصغيرة نخفي المسار والنجمة */
+            if (
+                window.innerWidth <= 900
+            ) {
+
+                return;
+
+            }
+
+
+            const rect =
+                journey.getBoundingClientRect();
+
+
+            /*
+               المسافة الكاملة التي يمكن للمستخدم
+               النزول خلالها داخل منطقة الرحلة
+            */
+
+            const scrollableDistance =
+                journey.offsetHeight -
+                window.innerHeight;
+
+
+            /* كم دخل المستخدم داخل الرحلة */
+            const travelled =
+                -rect.top;
+
+
+            /* تحويلها إلى نسبة بين 0 و 1 */
+            targetProgress =
+                travelled /
+                scrollableDistance;
+
+
+            /* منع القيمة من تجاوز 0 أو 1 */
+            targetProgress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        targetProgress
+                    )
+                );
+
+        }
+
+
+
+        /* =====================================================
+           تحريك النجمة بشكل ناعم
+        ===================================================== */
+
+        function animateStar() {
+
+
+            /*
+               النجمة لا تنتقل مباشرة،
+               بل تلحق موقع السكرول تدريجياً
+            */
+
+            currentProgress +=
+                (
+                    targetProgress -
+                    currentProgress
+                ) * 0.085;
+
+
+            /*
+               نحصل على نقطة داخل المسار
+               بناء على نسبة التقدم
+            */
+
+            const point =
+                path.getPointAtLength(
+                    currentProgress *
+                    pathLength
+                );
+
+
+            const svg =
+                document.querySelector(
+                    ".journey-svg"
+                );
+
+
+            const svgRect =
+                svg.getBoundingClientRect();
+
+
+            const journeyRect =
+                journey.getBoundingClientRect();
+
+
+            /*
+               تحديد مكان النجمة أفقيًا
+            */
+
+            const x =
+                (
+                    svgRect.left -
+                    journeyRect.left
+                ) +
+                (
+                    point.x /
+                    500
+                ) *
+                svgRect.width;
+
+
+            /*
+               تحديد مكان النجمة عموديًا
+            */
+
+            const y =
+                point.y;
+
+
+            star.style.left =
+                x + "px";
+
+
+            star.style.top =
+                y + "px";
+
+
+            requestAnimationFrame(
+                animateStar
+            );
+
+        }
+
+
+
+        /* =====================================================
+           إظهار المحطات أثناء النزول
+        ===================================================== */
+
+        const steps =
+            document.querySelectorAll(
+                ".journey-step"
+            );
+
+
+        /*
+           IntersectionObserver يراقب كل محطة
+           وعندما تظهر بالشاشة يضيف class show
+        */
+
+        const observer =
+            new IntersectionObserver(
+
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.25
+                }
+
+            );
+
+
+        /* نراقب كل محطة */
+        steps.forEach(
+            function(step) {
+
+                observer.observe(step);
+
+            }
+        );
+
+
+
+        /* =====================================================
+           تشغيل الحركة
+        ===================================================== */
+
+        window.addEventListener(
+            "scroll",
+            updateTargetProgress
+        );
+
+
+        window.addEventListener(
+            "resize",
+            updateTargetProgress
+        );
+
+
+        /* حساب أولي */
+        updateTargetProgress();
+
+
+        /* بدء حركة النجمة */
+        animateStar();
+
+    </script>
+
+
+</body>
+
+</html>

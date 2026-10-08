@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- يخلي الصفحة مناسبة للجوال -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EasyPark | Ryuof Alswoilm</title>
+
+
+    <style>
+
+        /* =====================================================
+           إعدادات الصفحة الأساسية
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+
+            /* ألوان الوضع الفاتح */
+            --bg: #f2fbfa;
+            --text: #131919;
+            --soft: #536866;
+
+            --blue: #4b78d1;
+            --purple: #8570f1;
+            --cyan: #97deda;
+
+            --card: rgba(255,255,255,0.58);
+            --line: rgba(19,25,25,0.12);
+            --tag: rgba(75,120,209,0.10);
+
+            background: var(--bg);
+            color: var(--text);
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            overflow-x: hidden;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease;
+        }
+
+
+        /* =====================================================
+           Dark Mode
+        ===================================================== */
+
+        body.dark-mode {
+
+            --bg: #111717;
+            --text: #eef8f7;
+            --soft: #b9cfcc;
+
+            --blue: #7caaff;
+            --purple: #a99af5;
+            --cyan: #97deda;
+
+            --card: rgba(255,255,255,0.055);
+            --line: rgba(255,255,255,0.11);
+            --tag: rgba(124,170,255,0.10);
+        }
+
+
+        /* =====================================================
+           الأزرار العلوية
+        ===================================================== */
+
+        .top-button {
+
+            position: fixed;
+
+            top: 20px;
+
+            width: 43px;
+            height: 43px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.30);
+
+            color: var(--text);
+
+            font-size: 19px;
+
+            cursor: pointer;
+
+            z-index: 1000;
+
+            backdrop-filter: blur(8px);
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .back-button {
+            left: 22px;
+        }
+
+        .theme-toggle {
+            right: 22px;
+        }
+
+        .back-button:hover {
+            transform: translateX(-5px);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(12deg) scale(1.05);
+        }
+
+
+        /* =====================================================
+           HERO
+
+           هنا البداية:
+           الكلام يسار
+           وصورة الجوالين يمين
+        ===================================================== */
+
+        .hero {
+
+            width: 90%;
+            max-width: 1150px;
+
+            min-height: 90vh;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                0.85fr 1.15fr;
+
+            align-items: center;
+
+            gap: 40px;
+
+            padding:
+                90px 0
+                50px;
+        }
+
+
+        /* =====================================================
+           نص بداية المشروع
+        ===================================================== */
+
+        .hero-content {
+
+            animation:
+                fadeUp 0.7s ease;
+        }
+
+
+        .small-label {
+
+            display: block;
+
+            color: var(--blue);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .hero h1 {
+
+            font-size: clamp(
+                55px,
+                7vw,
+                90px
+            );
+
+            line-height: 0.95;
+
+            margin-bottom: 25px;
+        }
+
+
+        .hero-description {
+
+            max-width: 500px;
+
+            color: var(--soft);
+
+            font-size: 16px;
+
+            line-height: 1.8;
+        }
+
+
+        .hero-description.ar {
+
+            direction: rtl;
+
+            text-align: right;
+
+            margin-top: 10px;
+
+            font-size: 14px;
+
+            line-height: 1.9;
+        }
+
+
+        /* =====================================================
+           معلومات سريعة
+        ===================================================== */
+
+        .hero-tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 25px;
+        }
+
+
+        .hero-tag {
+
+            padding:
+                8px 13px;
+
+            background: var(--tag);
+
+            border-radius: 20px;
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           صورة الجوالين
+        ===================================================== */
+
+        .hero-visual {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+        }
+
+
+        /*
+           الدائرة اللي بالخلف مجرد ديكور خفيف
+           عشان الجوالات ما تكون عايمة بالفراغ
+        */
+
+        .hero-visual::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 430px;
+            height: 430px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(133,112,241,0.15),
+                    rgba(151,222,218,0.08),
+                    transparent 70%
+                );
+
+            z-index: -1;
+        }
+
+
+        .phones-image {
+
+            width: 100%;
+
+            max-width: 620px;
+
+            display: block;
+
+            object-fit: contain;
+
+            animation:
+                phoneFloat 4s ease-in-out infinite;
+        }
+
+
+        @keyframes phoneFloat {
+
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+
+        /* =====================================================
+           عنوان بداية الرحلة
+        ===================================================== */
+
+        .story-heading {
+
+            text-align: center;
+
+            width: 90%;
+
+            max-width: 700px;
+
+            margin:
+                30px auto
+                90px;
+        }
+
+
+        .story-heading span {
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            color: var(--purple);
+
+            font-weight: 700;
+        }
+
+
+        .story-heading h2 {
+
+            margin-top: 12px;
+
+            font-size: 37px;
+        }
+
+
+        .story-heading p {
+
+            margin-top: 10px;
+
+            color: var(--soft);
+
+            font-size: 15px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           الرحلة الرئيسية
+        ===================================================== */
+
+        .journey {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            position: relative;
+
+            padding-bottom: 100px;
+        }
+
+
+        /* =====================================================
+           الخط الموجود بمنتصف الرحلة
+        ===================================================== */
+
+        .journey-line {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 20px;
+            bottom: 60px;
+
+            width: 2px;
+
+            transform:
+                translateX(-50%);
+
+            background: var(--line);
+        }
+
+
+        /* الخط الملون اللي يزيد أثناء السكرول */
+        .journey-progress {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 20px;
+
+            width: 3px;
+
+            height: 0;
+
+            transform:
+                translateX(-50%);
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    var(--cyan),
+                    var(--purple)
+                );
+
+            border-radius: 10px;
+
+            z-index: 2;
+        }
+
+
+        /* =====================================================
+           النجمة
+        ===================================================== */
+
+        .journey-star {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 20px;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            color: var(--purple);
+
+            background: var(--bg);
+
+            font-size: 40px;
+
+            z-index: 4;
+
+            transition:
+                background 0.4s ease,
+                color 0.4s ease;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           كل مرحلة من الرحلة
+        ===================================================== */
+
+        .journey-step {
+
+            width: 100%;
+
+            min-height: 350px;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        /*
+           المحطة اليسار
+        */
+
+        .journey-step.left {
+
+            justify-content: flex-start;
+        }
+
+
+        /*
+           المحطة اليمين
+        */
+
+        .journey-step.right {
+
+            justify-content: flex-end;
+        }
+
+
+        /* =====================================================
+           كرت المحطة
+        ===================================================== */
+
+        .step-card {
+
+            width: 43%;
+
+            padding: 28px 30px;
+
+            background: var(--card);
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius: 24px;
+
+            backdrop-filter: blur(8px);
+
+            opacity: 0;
+
+            transform:
+                translateY(35px);
+
+            transition:
+                opacity 0.65s ease,
+                transform 0.65s ease,
+                background 0.4s ease;
+
+            box-shadow:
+                0 16px 40px
+                rgba(0,0,0,0.04);
+        }
+
+
+        /* لما المحطة تدخل الشاشة */
+        .step-card.show {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        .step-number {
+
+            display: block;
+
+            color: var(--blue);
+
+            font-size: 11px;
+
+            letter-spacing: 2px;
+
+            font-weight: 700;
+
+            margin-bottom: 12px;
+        }
+
+
+        .step-card h3 {
+
+            font-size: 26px;
+
+            margin-bottom: 7px;
+        }
+
+
+        /* عنوان عربي */
+        .step-ar-title {
+
+            direction: rtl;
+
+            text-align: right;
+
+            font-size: 18px;
+
+            font-weight: 500;
+
+            margin-bottom: 16px;
+        }
+
+
+        .step-card .en {
+
+            font-size: 14px;
+
+            line-height: 1.75;
+
+            color: var(--soft);
+        }
+
+
+        .step-card .ar {
+
+            direction: rtl;
+
+            text-align: right;
+
+            font-size: 13px;
+
+            line-height: 1.9;
+
+            color: var(--soft);
+
+            margin-top: 12px;
+
+            padding-top: 12px;
+
+            border-top:
+                1px solid
+                var(--line);
+        }
+
+
+        /* =====================================================
+           الأدوات
+        ===================================================== */
+
+        .tools {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-top: 16px;
+        }
+
+
+        .tool {
+
+            padding:
+                8px 11px;
+
+            border-radius: 18px;
+
+            background: var(--tag);
+
+            font-size: 11px;
+        }
+
+
+        /* =====================================================
+           النقاط الموجودة في منتصف الخط
+        ===================================================== */
+
+        .journey-dot {
+
+            position: absolute;
+
+            left: 50%;
+
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            width: 14px;
+            height: 14px;
+
+            background: var(--bg);
+
+            border:
+                3px solid
+                var(--purple);
+
+            border-radius: 50%;
+
+            z-index: 3;
+        }
+
+
+        /* =====================================================
+           نهاية الصفحة
+        ===================================================== */
+
+        .ending {
+
+            max-width: 680px;
+
+            margin:
+                30px auto
+                100px;
+
+            text-align: center;
+
+            padding: 0 20px;
+        }
+
+
+        .ending h2 {
+
+            font-size: 30px;
+
+            margin-bottom: 14px;
+        }
+
+
+        .ending p {
+
+            color: var(--soft);
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+
+        .ending .arabic {
+
+            direction: rtl;
+
+            margin-top: 8px;
+        }
+
+
+        /* =====================================================
+           Animation
+        ===================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =====================================================
+           Responsive
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .hero {
+
+                grid-template-columns: 1fr;
+
+                text-align: center;
+
+                min-height: auto;
+
+                gap: 20px;
+            }
+
+
+            .hero-description {
+
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+
+            .hero-description.ar {
+
+                text-align: center;
+            }
+
+
+            .hero-tags {
+
+                justify-content: center;
+            }
+
+
+            .phones-image {
+
+                max-width: 500px;
+            }
+
+
+            /*
+               على الجوال نخلي الخط على اليسار
+               بدل النص
+            */
+
+            .journey-line,
+            .journey-progress {
+
+                left: 22px;
+            }
+
+
+            .journey-star {
+
+                display: none;
+            }
+
+
+            .journey-step,
+            .journey-step.left,
+            .journey-step.right {
+
+                justify-content: flex-end;
+
+                min-height: auto;
+
+                margin-bottom: 30px;
+            }
+
+
+            .step-card {
+
+                width: calc(100% - 55px);
+            }
+
+
+            .journey-dot {
+
+                left: 22px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero {
+
+                width: 92%;
+
+                padding-top: 90px;
+            }
+
+
+            .hero h1 {
+
+                font-size: 52px;
+            }
+
+
+            .story-heading h2 {
+
+                font-size: 29px;
+            }
+
+
+            .journey {
+
+                width: 94%;
+            }
+
+
+            .step-card {
+
+                padding: 24px 20px;
+            }
+
+
+            .step-card h3 {
+
+                font-size: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         زر الرجوع
+    ====================================================== -->
+
+    <button
+        class="top-button back-button"
+        onclick="window.location.href='projects.html'"
+        aria-label="Back"
+    >
+        ←
+    </button>
+
+
+    <!-- =====================================================
+         زر Dark Mode
+    ====================================================== -->
+
+    <button
+        class="top-button theme-toggle"
+        id="themeToggle"
+        aria-label="Change theme"
+    >
+        🌙
+    </button>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="hero">
+
+
+        <!-- الجزء النصي -->
+        <div class="hero-content">
+
+            <span class="small-label">
+                GRADUATION PROJECT | مشروع التخرج
+            </span>
+
+            <h1>
+                EasyPark
+            </h1>
+
+            <p class="hero-description">
+
+                A smart parking experience designed to help students
+                find and reserve university parking more easily.
+
+            </p>
+
+            <p class="hero-description ar">
+
+                تجربة ذكية للمواقف تهدف إلى مساعدة الطلاب
+                في العثور على مواقف الجامعة وحجزها بسهولة أكبر.
+
+            </p>
+
+
+            <!-- الأدوات بشكل سريع -->
+            <div class="hero-tags">
+
+                <span class="hero-tag">
+                    UI/UX
+                </span>
+
+                <span class="hero-tag">
+                    Front-End
+                </span>
+
+                <span class="hero-tag">
+                    Database
+                </span>
+
+                <span class="hero-tag">
+                    Team Leader
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- صورة الجوالات -->
+        <div class="hero-visual">
+
+            <img
+                src="images/easypark-phones.png"
+                alt="EasyPark Screens"
+                class="phones-image"
+            >
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         بداية قصة المشروع
+    ====================================================== -->
+
+    <section class="story-heading">
+
+        <span>
+            PROJECT JOURNEY
+        </span>
+
+        <h2>
+            How the idea became EasyPark
+        </h2>
+
+        <p>
+            From noticing the problem to designing a simple
+            digital parking experience.
+        </p>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         الرحلة
+    ====================================================== -->
+
+    <main
+        class="journey"
+        id="journey"
+    >
+
+
+        <!-- الخط الأساسي -->
+        <div class="journey-line"></div>
+
+
+        <!-- الخط اللي يتملى مع السكرول -->
+        <div
+            class="journey-progress"
+            id="journeyProgress"
+        ></div>
+
+
+        <!-- النجمة المتحركة -->
+        <div
+            class="journey-star"
+            id="journeyStar"
+        >
+            ☆
+        </div>
+
+
+
+        <!-- =================================================
+             01 المشكلة
+        ================================================== -->
+
+        <section class="journey-step left">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    01 — THE PROBLEM
+                </span>
+
+                <h3>
+                    Searching takes time.
+                </h3>
+
+                <div class="step-ar-title">
+                    البحث عن الموقف يستغرق وقتًا
+                </div>
+
+                <p class="en">
+
+                    During busy university hours, students may spend
+                    unnecessary time searching for an available
+                    parking space.
+
+                </p>
+
+                <p class="ar">
+
+                    في أوقات الازدحام قد يقضي الطلاب وقتًا طويلًا
+                    في البحث عن موقف متاح داخل الجامعة.
+
+                </p>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             02 الفكرة
+        ================================================== -->
+
+        <section class="journey-step right">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    02 — THE IDEA
+                </span>
+
+                <h3>
+                    Reserve before arrival.
+                </h3>
+
+                <div class="step-ar-title">
+                    احجز قبل الوصول
+                </div>
+
+                <p class="en">
+
+                    EasyPark gives students a simple way to
+                    find available parking and reserve a spot
+                    before reaching campus.
+
+                </p>
+
+                <p class="ar">
+
+                    يتيح EasyPark للطالب معرفة المواقف المتاحة
+                    وحجز موقف قبل الوصول إلى الجامعة.
+
+                </p>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             03 التصميم
+        ================================================== -->
+
+        <section class="journey-step left">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    03 — DESIGN
+                </span>
+
+                <h3>
+                    Keep it simple.
+                </h3>
+
+                <div class="step-ar-title">
+                    تجربة بسيطة وواضحة
+                </div>
+
+                <p class="en">
+
+                    The interface was designed around a clear
+                    student journey: find parking, reserve,
+                    check the reservation and manage the profile.
+
+                </p>
+
+                <p class="ar">
+
+                    تم تصميم الواجهات حول رحلة واضحة للطالب:
+                    البحث عن موقف، الحجز، متابعة الحجز
+                    وإدارة الملف الشخصي.
+
+                </p>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             04 الأدوات
+        ================================================== -->
+
+        <section class="journey-step right">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    04 — TOOLS
+                </span>
+
+                <h3>
+                    Design to development.
+                </h3>
+
+                <div class="step-ar-title">
+                    من التصميم إلى التطوير
+                </div>
+
+                <p class="en">
+
+                    The project combines UI/UX design,
+                    front-end development and database concepts.
+
+                </p>
+
+                <p class="ar">
+
+                    يجمع المشروع بين تصميم تجربة المستخدم،
+                    وتطوير الواجهات الأمامية،
+                    ومفاهيم قواعد البيانات.
+
+                </p>
+
+
+                <!-- التقنيات -->
+                <div class="tools">
+
+                    <span class="tool">
+                        Figma
+                    </span>
+
+                    <span class="tool">
+                        HTML
+                    </span>
+
+                    <span class="tool">
+                        CSS
+                    </span>
+
+                    <span class="tool">
+                        JavaScript
+                    </span>
+
+                    <span class="tool">
+                        SQL
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             05 دوري
+        ================================================== -->
+
+        <section class="journey-step left">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    05 — MY ROLE
+                </span>
+
+                <h3>
+                    Team Leader.
+                </h3>
+
+                <div class="step-ar-title">
+                    قائدة الفريق
+                </div>
+
+                <p class="en">
+
+                    I worked across different parts of the project,
+                    including team organization, UI/UX,
+                    front-end development and the overall user flow.
+
+                </p>
+
+                <p class="ar">
+
+                    شاركت في عدة جوانب من المشروع، من تنظيم الفريق
+                    وتصميم UI/UX إلى تطوير الواجهات
+                    ومراجعة رحلة المستخدم كاملة.
+
+                </p>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             06 النتيجة
+        ================================================== -->
+
+        <section class="journey-step right">
+
+            <div class="step-card">
+
+                <span class="step-number">
+                    06 — RESULT
+                </span>
+
+                <h3>
+                    One simple parking journey.
+                </h3>
+
+                <div class="step-ar-title">
+                    رحلة مواقف واحدة وواضحة
+                </div>
+
+                <p class="en">
+
+                    Students can find parking, reserve a space,
+                    manage current reservations, view history
+                    and access their profile.
+
+                </p>
+
+                <p class="ar">
+
+                    يستطيع الطالب البحث عن موقف وحجزه،
+                    وإدارة الحجز الحالي، والاطلاع على
+                    سجل الحجوزات وملفه الشخصي.
+
+                </p>
+
+            </div>
+
+            <div class="journey-dot"></div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         نهاية الصفحة
+    ====================================================== -->
+
+    <section class="ending">
+
+        <h2>
+            Start with the problem.
+        </h2>
+
+        <p>
+            EasyPark taught me that useful digital products
+            begin by understanding a real problem first.
+        </p>
+
+        <p class="arabic">
+
+            علّمني EasyPark أن الحل الرقمي الجيد
+            يبدأ أولًا بفهم المشكلة الحقيقية.
+
+        </p>
+
+    </section>
+
+
+
+    <script>
+
+        /* =====================================================
+           DARK MODE
+        ===================================================== */
+
+        const themeToggle =
+            document.getElementById(
+                "themeToggle"
+            );
+
+
+        const savedTheme =
+            localStorage.getItem(
+                "portfolioTheme"
+            );
+
+
+        /* إذا الدارك مود محفوظ نشغله */
+        if (savedTheme === "dark") {
+
+            document.body.classList.add(
+                "dark-mode"
+            );
+
+        }
+
+
+        function updateThemeIcon() {
+
+            if (
+                document.body.classList.contains(
+                    "dark-mode"
+                )
+            ) {
+
+                themeToggle.textContent =
+                    "☀️";
+
+            }
+
+            else {
+
+                themeToggle.textContent =
+                    "🌙";
+
+            }
+
+        }
+
+
+        updateThemeIcon();
+
+
+        themeToggle.addEventListener(
+            "click",
+            function () {
+
+                document.body.classList.toggle(
+                    "dark-mode"
+                );
+
+
+                const dark =
+                    document.body.classList.contains(
+                        "dark-mode"
+                    );
+
+
+                localStorage.setItem(
+                    "portfolioTheme",
+                    dark
+                        ? "dark"
+                        : "light"
+                );
+
+
+                updateThemeIcon();
+
+            }
+        );
+
+
+
+        /* =====================================================
+           عناصر الرحلة
+        ===================================================== */
+
+        const journey =
+            document.getElementById(
+                "journey"
+            );
+
+
+        const journeyProgress =
+            document.getElementById(
+                "journeyProgress"
+            );
+
+
+        const journeyStar =
+            document.getElementById(
+                "journeyStar"
+            );
+
+
+        const cards =
+            document.querySelectorAll(
+                ".step-card"
+            );
+
+
+
+        /* =====================================================
+           إظهار الكروت أثناء السكرول
+        ===================================================== */
+
+        const observer =
+            new IntersectionObserver(
+
+                function(entries) {
+
+                    entries.forEach(
+                        function(entry) {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+
+                {
+                    threshold: 0.25
+                }
+
+            );
+
+
+        cards.forEach(
+            function(card) {
+
+                observer.observe(card);
+
+            }
+        );
+
+
+
+        /* =====================================================
+           حركة النجمة والخط
+        ===================================================== */
+
+        function updateJourney() {
+
+
+            /*
+               على الشاشات الصغيرة ما نحتاج النجمة
+            */
+
+            if (
+                window.innerWidth <= 850
+            ) {
+
+                return;
+
+            }
+
+
+            const rect =
+                journey.getBoundingClientRect();
+
+
+            const journeyHeight =
+                journey.offsetHeight;
+
+
+            /*
+               نخلي الحركة تبدأ لما الرحلة تدخل الشاشة
+            */
+
+            const startPoint =
+                window.innerHeight * 0.55;
+
+
+            const travelled =
+                startPoint -
+                rect.top;
+
+
+            const maxTravel =
+                journeyHeight -
+                80;
+
+
+            let progress =
+                travelled /
+                maxTravel;
+
+
+            /*
+               نخلي النسبة بين 0 و 1
+            */
+
+            progress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        progress
+                    )
+                );
+
+
+            /*
+               الخط الملون يكبر مع السكرول
+            */
+
+            const height =
+                progress *
+                (
+                    journeyHeight -
+                    80
+                );
+
+
+            journeyProgress.style.height =
+                height + "px";
+
+
+            /*
+               النجمة تمشي فوق الخط
+            */
+
+            journeyStar.style.top =
+                (
+                    20 +
+                    height
+                ) + "px";
+
+        }
+
+
+
+        window.addEventListener(
+            "scroll",
+            updateJourney
+        );
+
+
+        window.addEventListener(
+            "resize",
+            updateJourney
+        );
+
+
+        updateJourney();
+
+    </script>
+
+
+</body>
+
+</html>
